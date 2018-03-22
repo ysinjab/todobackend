@@ -13,9 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
+from django.conf.urls import url, include
+from todo import views
+from rest_framework.routers import DefaultRouter
 
+# Create a router and register our viewsets with it.
+router = DefaultRouter(trailing_slash=False)
+router.register(r'todos', views.TodoItemViewSet)
+
+# The API URLs are now determined automatically by the router.
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
 ]
