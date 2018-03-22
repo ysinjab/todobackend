@@ -3,3 +3,5 @@ venv
 *.pyc
 
 *.sqllite3
+
+.vscode
