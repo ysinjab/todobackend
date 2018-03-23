@@ -5,3 +5,5 @@ venv
 *.sqllite3
 
 .vscode
+
+target

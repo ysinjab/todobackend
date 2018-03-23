@@ -1,0 +1,43 @@
+test:
+  build: ../../
+  dockerfile: docker/dev/Dockerfile
+  volumes_from: 
+    - cache
+  links:
+    - db    
+  environment: 
+    DJANGO_SETTINGS_MODULE : todobackend.settings.test
+    D_USER: postgres
+    D_PASSWORD: '123'
+    D_NAME: todobackend
+    D_HOST: db
+    TEST_OUTPUT_DIR: /reports
+
+cache:
+  build: ../../
+  dockerfile: docker/dev/Dockerfile
+  volumes:
+      - /tmp/cache:/cache
+      - /build
+  entrypoint: "true"
+
+builder:
+  build: ../../
+  dockerfile: docker/dev/Dockerfile
+  volumes:
+    - ../../target:/wheelhouse
+  volumes_from:
+    - cache
+  entrypoint: 'entrypoint.sh'
+  command: ["pip", "wheel", "--no-index", "-f /build", "."]
+
+
+db:
+  image: postgres
+  hostname: db
+  expose:
+    - "5432"
+  environment:
+    POSTGRES_PASSWORD: 123
+    POSTGRES_DB: todobackend
+    

@@ -31,11 +31,20 @@ NOSE_ARGS = [
 #     }
 # }
 DATABASES = {
-    'default': {
+
+        'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'todobackend',
-        'USER': 'ysinjab',
-        'PASSWORD': '123',
-        'HOST': 'localhost'
+        'NAME': os.environ.get('D_NAME','todobackend'),
+        'USER': os.environ.get('D_USER','root'),
+        'PASSWORD': os.environ.get('D_PASSWORD','123'),
+        'HOST': os.environ.get('D_HOST','0.0.0.0'),
+        'PORT': os.environ.get('D_PORT','5432'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'todobackend',
+    #     'USER': 'ysinjab',
+    #     'PASSWORD': '123',
+    #     'HOST': 'localhost'
+    # }
 }
